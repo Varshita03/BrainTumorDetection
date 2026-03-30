@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %}Patient Details{% endblock title %}
+{% block body %}
+
+<div class="container mt-4">  <!-- Changed mt-3 to mt-4 for better spacing -->
+    <div class="row justify-content-center">  <!-- Added justify-content-center -->
+        <div class="col-md-8 col-lg-6">  <!-- Adjusted column sizes for better form width -->
+            <div class="card shadow">  <!-- Added card with shadow for better visual hierarchy -->
+                <div class="card-header bg-primary text-white">  <!-- Improved header styling -->
+                    <h4 class="text-center mb-0">Patient Details</h4>  <!-- Removed bg-dark since card-header has its own bg -->
+                </div>
+                <div class="card-body">
+                    {% with messages=get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form action="/patient" method="POST" id="patientForm">  <!-- Added form ID for potential JS validation -->
+                        <!-- Email Field -->
+                        <div class="mb-3">  <!-- Changed form-group to mb-3 (Bootstrap 5) -->
+                            <label for="email" class="form-label">Email</label>  <!-- Added proper label -->
+                            <input type="email" class="form-control" id="email" value="{{current_user.email}}" name="email" disabled required>
+                        </div>
+
+                        <!-- Name Fields -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="fname" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lname" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name">
+                            </div>
+                        </div>
+
+                        <!-- Age and Gender -->
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="age" class="form-label">Age</label>
+                                <input type="number" class="form-control" id="age" name="age" min="1" max="120" placeholder="Age" required>
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select class="form-select" id="gender" name="gender" required>  <!-- Changed to form-select -->
+                                    <option value="">-- Select Gender --</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Date of Birth -->
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+
+                        <!-- ID and Phone Number -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id" class="form-label">Patient ID</label>
+                                <input type="text" class="form-control" id="id" name="id" pattern="[0-9]{1,2}" title="Please enter a valid ID (1-2 digits)" placeholder="ID" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="number" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="number" name="number" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" placeholder="Phone Number" required>
+                            </div>
+                        </div>
+
+                        <!-- Form Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">  <!-- Improved button alignment -->
+                            <button type="reset" class="btn btn-outline-secondary me-md-2">Reset</button>  <!-- Changed to outline style -->
+                            <button type="submit" class="btn btn-primary">Submit</button>  <!-- Removed fixed width classes -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional: Add form validation script -->
+<script>
+document.getElementById('patientForm').addEventListener('submit', function(event) {
+    // You could add custom validation here if needed
+    // Example: Validate that date is not in the future
+    const dob = new Date(document.getElementById('date').value);
+    const today = new Date();
+    if (dob > today) {
+        alert('Date of birth cannot be in the future');
+        event.preventDefault();
+    }
+});
+</script>
+
+{% endblock body %}

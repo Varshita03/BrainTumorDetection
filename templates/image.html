@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}Upload Image or Fusion Model Inputs{% endblock title %}
+{% block body %}
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h4 class="text-center mb-0">Brain Tumor Detection</h4>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data" id="uploadForm">
+        <div class="mb-3">
+          <label for="model" class="form-label">Select Model:</label>
+          <select class="form-select" id="model" name="model" required onchange="toggleInputs()">
+            <option value="">-- Select Model --</option>
+            <option value="CNN">CNN Image Analysis</option>
+            <option value="Fusion">Fusion Model (Clinical + Image)</option>
+          </select>
+        </div>
+
+        <div id="imageUploadDiv" class="mb-3">
+          <label for="file" class="form-label">Upload MRI Image:</label>
+          <input type="file" class="form-control" id="file" name="file" accept=".png,.jpg,.jpeg">
+          <div class="form-text">Only required for CNN model (JPEG, PNG formats)</div>
+        </div>
+
+        <div id="fusionInputsDiv" style="display:none;">
+          <div class="mb-3">
+            <label for="mutationCount" class="form-label">Mutation Count:</label>
+            <input type="number" class="form-control" id="mutationCount" name="mutationCount" min="0" step="0.1" 
+                   placeholder="Enter mutation count" required>
+          </div>
+          <div class="mb-3">
+            <label for="age" class="form-label">Age:</label>
+            <input type="number" class="form-control" id="age" name="age" min="0" max="120" step="1" 
+                   placeholder="Enter age" required>
+          </div>
+          <div class="mb-3">
+            <label for="gender" class="form-label">Gender:</label>
+            <select class="form-select" id="sex" name="sex">
+              <option value="0">Male</option>
+              <option value="1">Female</option>
+          </select>
+          </div>
+        </div>
+        <div class="d-grid mt-4">
+          <button type="submit" class="btn btn-primary btn-lg">Analyze</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleInputs() {
+  const model = document.getElementById('model').value;
+  const imageDiv = document.getElementById('imageUploadDiv');
+  const fusionDiv = document.getElementById('fusionInputsDiv');
+  
+  if (model === 'Fusion') {
+    imageDiv.style.display = 'none';
+    fusionDiv.style.display = 'block';
+    document.getElementById('file').value = '';
+  } else {
+    imageDiv.style.display = 'block';
+    fusionDiv.style.display = 'none';
+    document.getElementById('mutationCount').value = '';
+    document.getElementById('age').value = '';
+    document.getElementById('gender').value = '0';
+  }
+}
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  toggleInputs();
+  
+  // Add form validation
+  document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    const model = document.getElementById('model').value;
+    if (model === 'Fusion') {
+      // Fusion model validation
+      if (!document.getElementById('mutation_count').value || 
+          !document.getElementById('age').value) {
+        alert('Please fill all required fields for Fusion model');
+        e.preventDefault();
+      }
+    } else if (model === 'CNN') {
+      // CNN model validation
+      if (!document.getElementById('file').value) {
+        alert('Please upload an image for CNN analysis');
+        e.preventDefault();
+      }
+    } else {
+      alert('Please select a model');
+      e.preventDefault();
+    }
+  });
+});
+</script>
+{% endblock %}
