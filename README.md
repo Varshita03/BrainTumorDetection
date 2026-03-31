@@ -1,40 +1,69 @@
-# Explainable AI Based Model for Brain Tumour Detection
+# 🧠 Brain Tumor Detection – Explainable AI System
 
-The Explainable AI Based Model for Brain Tumour Detection is a web application designed to assist healthcare professionals in accurately diagnosing brain tumours using artificial intelligence (AI) technology.
-The system employs machine learning algorithms to analyze medical imaging data, such as MRI scans, to detect the presence of brain tumours. 
-Unlike traditional black-box AI models, this system incorporates explainable AI techniques to provide clinicians with insights into the decision-making process of the AI model, 
-enhancing transparency and trust in the diagnostic results.
+An AI-based system for early detection of brain tumors using MRI images and deep learning techniques, enhanced with Explainable AI (XAI) for better interpretability.
 
-## Key Features
-- **User Authentication and Authorization:** The system supports user authentication and authorization to ensure that only authorized healthcare professionals have access to patient data and diagnostic tools.
+---
 
-- **Upload and Processing of Medical Images:** Healthcare professionals can upload medical imaging data, such as MRI scans, to the system for analysis. The system processes the uploaded images using deep learning algorithms to detect potential brain tumours.
+## 🚀 Features
 
-- **AI Model Interpretability:**  The AI model incorporates explainable AI techniques to provide insights into the features and patterns that contributed to the diagnostic decision. Clinicians can interpret the AI model's predictions and understand the factors influencing the detection of brain tumours.
+* Upload MRI brain scan images
+* Detect presence of brain tumors using CNN models
+* Explainable AI (XAI) for model transparency
+* Heatmaps and SHAP visualizations for better understanding
+* User-friendly web interface
 
+---
 
-## Technologies used
+## 🧠 Tech Stack
 
-- Frontend - HTML, CSS
-- Backend - Python, Flask
-- Database - MySQL
-- Xampp (For local server)
-- VS Code (IDE)
+* Python
+* Flask
+* TensorFlow / Keras (CNN)
+* SHAP (Explainable AI)
+* HTML, CSS
+* MySQL
 
+---
 
-## Requirements
+## 📂 Project Structure
 
-- VS Code
-- Xampp control panel
-- Anaconda
+* `templates/` – Frontend UI
+* `static/` – Images, outputs, reports
+* `results/` – Model outputs and accuracy
+* `main.py` – Application entry point
+* `models/` – Trained models (.h5)
 
+---
 
+## ▶️ How to Run
 
+```bash
+pip install -r requirements.txt
+python main.py
+```
 
+---
 
-## commands to execute 
+## 📊 Results
 
-1----->    py -3.10 -m venv venv310 
-2----->    .\venv310\Scripts\activate
-3----->    pip install -r requirements.txt
-4----->    python main.py 
+* Accurate detection of brain tumors from MRI scans
+* Visual explanation using heatmaps and SHAP plots
+* Improved model transparency for clinical trust
+
+---
+
+## 💡 Future Improvements
+
+* Improve accuracy with larger datasets
+* Deploy as a cloud-based application
+* Add real-time MRI analysis
+
+---
+
+## 👩‍💻 Author
+
+**Varshita Yadav**
+
+* B.Tech CSE Student
+* Skilled in AI, Data Analysis, and Full Stack Development
+* Interested in Healthcare Tech, Machine Learning, and Software Development

@@ -1,4 +1,29 @@
+# Virtual environments
+
 new_venv/
-__pycache__/
+venv310/
+venv/
+env/
+
+# Python cache
+
+**pycache**/
 *.pyc
+
+# Environment variables
+
 .env
+
+# VS Code / system files
+
+.vscode/
+.idea/
+
+# Jupyter Notebook
+
+.ipynb_checkpoints/
+
+# OS files
+
+.DS_Store
+Thumbs.db
